@@ -1,4 +1,4 @@
-package com.yatapone.nfcreader
+package com.yatapone.samplenfcreader
 
 import android.app.PendingIntent
 import android.content.Intent
@@ -8,7 +8,7 @@ import android.nfc.Tag
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import com.yatapone.nfcreader.databinding.ActivityMainBinding
+import com.yatapone.samplenfcreader.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     companion object {

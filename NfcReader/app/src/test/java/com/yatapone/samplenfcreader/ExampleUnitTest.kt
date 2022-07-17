@@ -1,4 +1,4 @@
-package com.yatapone.nfcreader
+package com.yatapone.samplenfcreader
 
 import org.junit.Test
 
