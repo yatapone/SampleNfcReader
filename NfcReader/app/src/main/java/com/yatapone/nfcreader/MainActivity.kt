@@ -8,13 +8,14 @@ import android.nfc.Tag
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.android.synthetic.main.activity_main.*
+import com.yatapone.nfcreader.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     companion object {
         private const val TAG = "MainActivity"
     }
 
+    private lateinit var binding: ActivityMainBinding
     private var nfcAdapter: NfcAdapter? = null
     private var pendingIntent: PendingIntent? = null
     private var intentFilters: Array<IntentFilter>? = null
@@ -22,7 +23,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         Log.d(TAG, "onCreate: ")
 
         val intent = Intent(this, javaClass)
@@ -31,11 +33,12 @@ class MainActivity : AppCompatActivity() {
 
         intentFilters = arrayOf(IntentFilter(NfcAdapter.ACTION_TECH_DISCOVERED))
 
+        // 検出したいものを有効にする
         techLists = arrayOf(
 //            arrayOf(android.nfc.tech.IsoDep::class.java.name), // 免許証
             arrayOf(android.nfc.tech.NfcA::class.java.name), // Mifare、taspo
             arrayOf(android.nfc.tech.NfcB::class.java.name), // 免許証、マイナンバーカード
-            arrayOf(android.nfc.tech.NfcF::class.java.name), // 交通系(SUICA, PASMO, ICOCA etc.), 電子マネー(Edy, nanaco, WAON), Mobile FeliCa
+            arrayOf(android.nfc.tech.NfcF::class.java.name), // 交通系(Suica, PASMO, ICOCA etc.), 電子マネー(Edy, nanaco, WAON), Mobile FeliCa
 //            arrayOf(android.nfc.tech.NfcV::class.java.name),
 //            arrayOf(android.nfc.tech.Ndef::class.java.name),
 //            arrayOf(android.nfc.tech.NdefFormatable::class.java.name),
@@ -59,7 +62,7 @@ class MainActivity : AppCompatActivity() {
             val tagIdJoined: String = tagId.joinToString("")
             Log.d(TAG, "onNewIntent: tagId=$tagId, tagIdJoined=$tagIdJoined")
 
-            tag_text.text = tagId.joinToString(":")
+            binding.tagText.text = tagId.joinToString(":")
 
         }
     }
